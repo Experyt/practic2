@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sasha
- * Date: 15.01.2019
- * Time: 20:13
- */
 
 namespace app\models;
 use yii\db\ActiveRecord;
@@ -20,17 +14,20 @@ class Good extends ActiveRecord
     public function getAllGoods(){
         $goods = Yii::$app->cache->get('goods');
         if (!$goods) {
-            $goods = Good::find()->asArray()->all();
-            Yii::$app->cache->set('goods', $goods, 10);
+            $goods = Good::find()->asArray()->orderBy('category')->all();
+            Yii::$app->cache->set('goods', $goods, 60);
 
         }
         return $goods;
     }
 
     public function getGoodsCategories($id) {
-        $catGoods = Good::find()->where(['category' => $id])->asArray()->all();
-
-        return $catGoods;
+        $catGoods = Yii::$app->cache->get('catGoods'.$id);
+        if(!$catGoods) {
+             $catGoods = Good::find()->where(['category' => $id])->asArray()->all();
+             Yii::$app->cache->set('catGoods'.$id, $catGoods , 10);
+    }
+    return $catGoods;
     }
 
     public function getSearchResults($search) {
