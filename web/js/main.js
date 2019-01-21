@@ -11,7 +11,7 @@ $('.modal-content').on('click', '.btn-next', function () {
         },
         error: function () {
             alert('Error');
-        },
+        }
     })
 });
 
@@ -67,7 +67,7 @@ $('.product-button__add').on('click', function (event) {
         },
         error: function () {
             alert('Error');
-        },
+        }
     })
 
 })
@@ -95,6 +95,6 @@ $('.modal-content').on('click','.delete',  function () {
             },
             error: function () {
                 alert('Error');
-            },
+            }
         })
 })
